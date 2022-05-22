@@ -42,10 +42,13 @@ export const register = (async(req, res)=> {
         const hashedPassword = await bcrypt.hash(password, 10); 
 
         const result = await User.create({email, username:username, password:hashedPassword})
-        const id = result._id.toString()
-        const token = jwt.sign({userId:id.toString(), email, }, process.env.SECRET_KEY, {expiresIn: '2h' })
+        if(!result) return res.status(400).send('User not created')
+        const {_id} = result
+        console.log('1')
+        const token = jwt.sign({userId:_id.toString(), email, }, process.env.SECRET_KEY, {expiresIn: '2h' })
+        console.log('2')
 
-        res.status(201).json({userDetails: {_id: isUserExists._id, email:result.email, username:isUserExists?.username, token}})
+        res.status(201).json({userDetails: {_id: result._id, email:result.email, username:isUserExists?.username, token}})
 
     } catch (error) {
         console.log(error.message)
