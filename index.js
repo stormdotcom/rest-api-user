@@ -4,6 +4,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import authRoutes from "./routes/authRoutes.js"
+import logger from 'morgan';
 dotenv.config()
 
 
@@ -11,8 +12,11 @@ const PORT = process.env.PORT || process.env.API_PORT;
 const CONNECTION_URL = process.env.DB_URI
 const app = express()
 
-app.use(express.json());
 app.use(cors());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 
 app.use('/api/auth', authRoutes)
 const server = http.createServer(app)

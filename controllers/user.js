@@ -6,17 +6,18 @@ import jwt from 'jsonwebtoken';
 export const login = (async(req, res)=> {
 
     const {email, password} = req.body; 
+    console.log(req)
 
     try {
         const user = await User.findOne({ email: email})
 
-        if(!user)  return res.status(404).send("No user found")
+        if(!user)  return res.status(404).send('No user found')
 
         const id = user._id.toString()
 
         const isPassword = await bcrypt.compare(password, user.password)
 
-        if(!isPassword) return res.status(403).send("Invalid Credentials")
+        if(!isPassword) return res.status(403).send('Invalid Credentials')
 
         const token = jwt.sign({userId:id, email, }, process.env.SECRET_KEY, {expiresIn: '2h' })
 
@@ -24,7 +25,7 @@ export const login = (async(req, res)=> {
 
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: "Something went wrong"})
+        res.status(500).send('Something went wrong')
     }
 }) 
 
@@ -37,7 +38,7 @@ export const register = (async(req, res)=> {
     try {
        const isUserExists = await User.findOne({email:email});
 
-       if(isUserExists) return res.status(409).send("User already exists, Please try another Email")
+       if(isUserExists) return res.status(409).send('User already exists, Please try another Email')
 
         const hashedPassword = await bcrypt.hash(password, 10); 
 
@@ -50,6 +51,6 @@ export const register = (async(req, res)=> {
 
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: "Something went wrong"})
+        res.status(500).send('Something went wrong')
     }
 }) 
