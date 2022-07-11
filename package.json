@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index2.js"
   },
   "keywords": [],
   "author": "",
@@ -18,9 +18,13 @@
     "express-joi-validation": "^5.0.1",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
+    "load": "^1.0.2",
+    "loadtest": "^5.2.0",
     "mongoose": "^6.2.10",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
-    "socket.io": "^4.4.1"
+    "os": "^0.1.2",
+    "socket.io": "^4.4.1",
+    "test": "^3.0.1"
   }
 }
