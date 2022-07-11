@@ -7,11 +7,9 @@ import authRoutes from "./routes/authRoutes.js"
 import logger from 'morgan';
 dotenv.config()
 
-
 const PORT = process.env.PORT || process.env.API_PORT;
 const CONNECTION_URL = process.env.DB_URI
 const app = express()
-
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());

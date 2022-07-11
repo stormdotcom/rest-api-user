@@ -20,7 +20,7 @@ export const login = (async(req, res)=> {
 
         const token = jwt.sign({userId:id, email, }, process.env.SECRET_KEY, {expiresIn: '2h' })
 
-        res.status(200).json({userDetails: {_id: user._id, email:user.email, username: user.username, token }})
+        res.status(200).send({userDetails: {_id: user._id, email:user.email, username: user.username, token }})
 
     } catch (error) {
         console.log(error.message)

@@ -7,8 +7,11 @@ const validator = JoiValidator.createValidator({})
 
 const router = express.Router()
 
-router.get('/test',verifyToken, (req, res)=>{
-    res.send("api live")
+router.get('/test', (req, res)=>{
+    for(let i=0; i< 1e8; i++) {
+        //some long running task which delays
+    }
+    res.send(`api live in process ${process.pid}`)
 })
 
 router.post('/register',  validator.body(registerSchema), register)
